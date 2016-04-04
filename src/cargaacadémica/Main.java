@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -455,8 +456,6 @@ public class Main extends javax.swing.JFrame {
         } else {
             for (int i = 0; i < r; i++) {
                 if (!act.contains(((Clases) elem[i]).getHora()) && !act.contains(((Clases) elem[i]).getMateria())) { // Controla que no haya repeticiones
-                    //System.out.println(((Clases) elem[i]).getMateria() + " " + ((Clases) elem[i]).getHora());
-                    // Resultado = (Clases)elem[i];
                     Perm2(elem, act + elem[i] + "," + " ", n - 1, r);
                 }
             }
@@ -466,53 +465,98 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        for (int i = 0; i < modeloMatricula.getRowCount(); i++) {
-            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1)));
-
-        }
-
-        String rest = "";
-        if (!satisfacción_promedio.isEmpty()) {
-            int suma = 0;
-            for (int i = 0; i < satisfacción_promedio.size(); i++) {
-                if (satisfacción_promedio.get(i).getHora().equals("7:00am")) {
-                    rest += satisfacción_promedio.get(0).getMateria() + "\t\t" + satisfacción_promedio.get(i).getHora() + "\n";
-                } else if (satisfacción_promedio.get(i).getHora().equals("8:30am")) {
-                    rest += satisfacción_promedio.get(0).getMateria() + "\t\t" + satisfacción_promedio.get(i).getHora() + "\n";
-                } else if (satisfacción_promedio.get(i).getHora().equals("7:00am")) {
-
-                } else if (satisfacción_promedio.get(i).getHora().equals("10:00am")) {
-
-                } else if (satisfacción_promedio.get(i).getHora().equals("11:30am")) {
-
-                } else if (satisfacción_promedio.get(i).getHora().equals("1:00pm")) {
-
-                } else if (satisfacción_promedio.get(i).getHora().equals("2:30pm")) {
-
-                } else if (satisfacción_promedio.get(i).getHora().equals("4:00pm")) {
-
-                } else if (satisfacción_promedio.get(i).getHora().equals("5:30pm")) {
-
-                } else if (satisfacción_promedio.get(i).getHora().equals("7:00pm")) {
-
+        if (satisfacción_promedio.isEmpty()) {
+            for (int i = 0; i < modeloMatricula.getRowCount(); i++) {
+                if (null != (String) modeloMatricula.getValueAt(i, 1)) {
+                    switch ((String) modeloMatricula.getValueAt(i, 1)) {
+                        case "7:00am":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 1));
+                            break;
+                        case "8:30am":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 2));
+                            break;
+                        case "10:00am":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 3));
+                            break;
+                        case "11:30am":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 4));
+                            break;
+                        case "1:00pm":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 5));
+                            break;
+                        case "2:30pm":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 6));
+                            break;
+                        case "4:00pm":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 7));
+                            break;
+                        case "5:30pm":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 8));
+                            break;
+                        case "7:00pm":
+                            satisfacción_promedio.add(new Clases((String) modeloMatricula.getValueAt(i, 0), (String) modeloMatricula.getValueAt(i, 1), 9));
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
             }
+            int suma = 1;
+            sort();
+            for (int i = 0; i < satisfacción_promedio.size() - 1; i++) {
 
-            rest += "Promedio de Satisfacción: ";
+                if (satisfacción_promedio.get(i).No == 1 && satisfacción_promedio.get(i + 1).No == 2) {
+                    suma++;
+                }
+                if (satisfacción_promedio.get(i).No == 2 && satisfacción_promedio.get(i + 1).No == 3) {
+                    suma++;
+                }
+                if (satisfacción_promedio.get(i).No == 3 && satisfacción_promedio.get(i + 1).No == 4) {
+                    suma++;
+                }
+                if (satisfacción_promedio.get(i).No == 4 && satisfacción_promedio.get(i + 1).No == 5) {
+                    suma++;
+                }
+                if (satisfacción_promedio.get(i).No == 5 && satisfacción_promedio.get(i + 1).No == 6) {
+                    suma++;
+                }
+                if (satisfacción_promedio.get(i).No == 6 && satisfacción_promedio.get(i + 1).No == 7) {
+                    suma++;
+                }
+                if (satisfacción_promedio.get(i).No == 7 && satisfacción_promedio.get(i + 1).No == 8) {
+                    suma++;
+                }
+                if (satisfacción_promedio.get(i).No == 8 && satisfacción_promedio.get(i + 1).No == 9) {
+                    suma++;
+                }
+            }
+            String rest = "";
+            if (!satisfacción_promedio.isEmpty()) {
+                for (int i = 0; i < satisfacción_promedio.size(); i++) {
+                    rest += satisfacción_promedio.get(i).getMateria() + "\t\t" + satisfacción_promedio.get(i).getHora() + "\t\t" + satisfacción_promedio.get(i).getNo() + "\n";
+                }
+
+                rest += "Promedio de Satisfacción: " + suma;
+            }
+
+            JOptionPane.showMessageDialog(this, rest, "Lista", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            for (int i = 0; i < satisfacción_promedio.size(); i++) {
+                satisfacción_promedio.remove(i);
+            }
         }
-
-        JOptionPane.showMessageDialog(this, rest, "Lista", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton2MouseClicked
 
     public void sort() {
-        for (int i = 0; i < lista.size(); i++) {
-            for (int j = 0; j < lista.size(); j++) {
-                if (lista.get(i).No < lista.get(j).No) {
-                    Clases temp1 = lista.get(i);
-                    Clases temp2 = lista.get(j);
-                    lista.set(i, temp2);
-                    lista.set(j, temp1);
+        for (int i = 0; i < satisfacción_promedio.size(); i++) {
+            for (int j = 0; j < satisfacción_promedio.size(); j++) {
+
+                if (satisfacción_promedio.get(i).No < satisfacción_promedio.get(j).No) {
+                    Clases temp1 = satisfacción_promedio.get(i);
+                    Clases temp2 = satisfacción_promedio.get(j);
+                    satisfacción_promedio.set(i, temp2);
+                    satisfacción_promedio.set(j, temp1);
 
                 }
             }

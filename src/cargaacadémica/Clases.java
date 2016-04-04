@@ -39,9 +39,10 @@ public class Clases {
         this.aula = aula;
     }
 
-    public Clases(String materia, String hora) {
+    public Clases(String materia, String hora, Integer d) {
         this.materia = materia;
         this.hora = hora;
+        this.No = d;
     }
 
     public Integer getNo() {
