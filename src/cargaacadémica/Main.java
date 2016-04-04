@@ -59,7 +59,7 @@ public class Main extends javax.swing.JFrame {
                     + "Algebra Lineal,Anatomia,Filosofia,Ambiental,Historia de Honduras_"
                     + "Algebra,Sociologia,Filosofia,Música,Discreta_"
                     + "Música,Anatomia,Filosofia,Español,Historia de Honduras_"
-                    + "Filosofia,Ingles II,Ambietal,Español,Sociologia";
+                    + "Ambiental,Filosofia,Ingles II,Español,Sociologia";
             String[] clases = everything.split("_");
             for (int i = 0; i < clases.length; i++) {
                 String[] unitClase = clases[i].split(",");
@@ -456,9 +456,11 @@ public class Main extends javax.swing.JFrame {
         } else {
             for (int i = 0; i < r; i++) {
                 if (!act.contains(((Clases) elem[i]).getHora()) && !act.contains(((Clases) elem[i]).getMateria())) { // Controla que no haya repeticiones
+                    System.out.print(((Clases) elem[i]).getMateria() + " " + ((Clases) elem[i]).getHora() + ", ");
                     Perm2(elem, act + elem[i] + "," + " ", n - 1, r);
                 }
             }
+            System.out.println("");
         }
     }
 
